@@ -1,0 +1,99 @@
+body {
+    background: lightgrey;
+
+}
+
+.main-div {
+    display: grid;
+    grid-template-columns: 1fr; /* single column by default */
+    grid-auto-rows: auto;
+    /* rows size themselves to fit their content height */
+    gap: 1.5rem;
+    grid-auto-flow: row dense;
+    /* fills items row by row, backfilling any gaps left by spanning items */
+    max-width: 40rem; /* matches single-column width below 900px */
+    margin: 0 auto;
+    /* centers the grid horizontally within its parent
+    margin: 0 auto only centers an element if that element is narrower than its parent and the browser knows exactly how wide the element is supposed to be.*/
+}
+
+.testimonial {
+    grid-column: 1;
+    display: flex;
+    flex-direction: row;
+    background: white;
+    border-radius: 5px;
+    padding: 2em;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    gap: 1em;
+
+}
+
+
+.testimonial .fa-quote-left {
+    font-size: 4em;
+}
+
+.testimonial p {
+    color: #999;
+}
+
+.testimonial > .image-container {
+    flex: 0 0 8rem;
+    /*  grow 0 (Don't grow bigger if there's extra space)
+        shrink 0 (Don't shrink if space gets tight.)
+        basis 8rem (Start with a width of 8rem.) */
+    aspect-ratio: 1;
+    /* width / height = 1
+       width and height are always equal */
+    border-radius: 50%;
+    overflow: hidden;
+    /* if content inside this element is bigger than the element's own box,
+    cut off (clip) anything that spills outside */
+    border: 1px double gray;
+}
+
+.testimonial > .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* scales the image to completely fill the container,
+    cropping off whatever doesn't fit, while keeping the image's proportions correct
+    (no stretching/distortion) */
+}
+
+@media (min-width: 900px) {
+    .main-div {
+        grid-template-columns: 40rem 18rem;
+        /* 2 fixed columns: 40rem wide, 18rem wide — neither grows/shrinks */
+
+        max-width: calc(40rem + 18rem + 1.5rem);
+        /* caps total width = both columns + the one gap between them */
+
+    }
+
+    .testimonial:nth-child(3n) {
+        grid-column: 2;
+        grid-row: span 2;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.5em;
+    }
+
+    .testimonial:nth-child(3n) .image-container {
+        flex: 0 0 6rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .testimonial {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .testimonial .image-container {
+        flex: 0 0 6rem;
+    }
+}
